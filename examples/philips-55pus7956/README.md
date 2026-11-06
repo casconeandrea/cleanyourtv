@@ -32,3 +32,17 @@ Lista derivata da [`../philips-50pud7406/`](../philips-50pud7406/), che copre la
 - Spegni il debug USB e quello di rete, revoca le autorizzazioni e riavvia.
 - Dopo un riavvio completo il televisore si apre sulla TV in diretta: è un comportamento del firmware.
 - Per annullare: `TV_HOST=<ip> tools/restore.sh examples/philips-55pus7956/debloat.txt`
+
+## Windows: file a doppio clic
+
+Nella cartella principale del progetto ci sono gli script da avviare in ordine:
+`1_PREPARA.bat`, `2_VERIFICA.bat`, `3_APPLICA.bat`, `4_CONTROLLA_HOME.bat`, `5_CHIUDI_ACCESSO.bat`.
+`RIPRISTINA.bat` riporta il televisore com'era. L'IP del televisore viene salvato in `tv_ip.txt`.
+
+## Dove sta lo stato originale
+
+Lo stato salvato prima della pulizia non è nella cartella del progetto: è in
+`C:\Users\<nome utente>\.cleanyourtv\`, ed è legato al percorso esatto della lista
+(`...\examples\philips-55pus7956\debloat.txt`). Per un ripristino preciso usa lo stesso computer
+e la stessa cartella. Da un altro computer o da un'altra cartella `RIPRISTINA.bat` riattiva
+comunque tutto quello che è nella lista.
