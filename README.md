@@ -1,3 +1,15 @@
+> **Questo è il fork personale di [@casconeandrea](https://github.com/casconeandrea) per un televisore Philips 55PUS7956/12.**
+> Il lavoro fatto qui, rispetto al progetto originale [Gathin23/cleanyourtv](https://github.com/Gathin23/cleanyourtv):
+>
+> - **[`examples/philips-55pus7956/`](examples/philips-55pus7956/)**: la lista per questo televisore, con il README in italiano.
+>   Mantiene Ambilight, lo screensaver Google, Chromecast, le icone Sorgenti e Wi-Fi della Home
+>   e le app Netflix, Prime Video, HBO Max, Crunchyroll, YouTube, RaiPlay e Witty TV.
+> - **File da avviare con un doppio clic su Windows**, qui nella cartella principale:
+>   [`1_PREPARA.bat`](1_PREPARA.bat), [`2_VERIFICA.bat`](2_VERIFICA.bat), [`3_APPLICA.bat`](3_APPLICA.bat),
+>   [`4_CONTROLLA_HOME.bat`](4_CONTROLLA_HOME.bat), [`5_CHIUDI_ACCESSO.bat`](5_CHIUDI_ACCESSO.bat) e [`RIPRISTINA.bat`](RIPRISTINA.bat).
+>
+> Tutto il resto di questa pagina è il README del progetto originale.
+
 <p align="center">
   <a href="https://cleanyour.tv"><img src="https://raw.githubusercontent.com/Gathin23/cleanyourtv/main/docs/banner.png" alt="CleanYourTV. Your TV, minus the ads. Strip the bloatware from any Android TV or Google TV over Wi-Fi and replace the ad-filled home screen with a clean launcher that looks like an Apple TV. No root, no cable, nothing uninstalled, and a one-line restore." width="800"></a>
 </p>
