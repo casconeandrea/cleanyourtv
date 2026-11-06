@@ -1,0 +1,6 @@
+{
+  "tv": "Philips 55PUS7956/12 (TPV, PH0M_EA_T32, MStar/MediaTek), Italy",
+  "os": "Android TV 11",
+  "brand": "Philips",
+  "notes": "Personal variant of philips-50pud7406/ (same board; its eighth unit is a 65PUS7956): telemetry, app gallery, demo, partner rows, recommendations and unused Google apps off; Ambilight, Google's ambient screensaver (backdrop), Chromecast and the remote service kept; Netflix, Prime Video, HBO Max, Crunchyroll, YouTube, RaiPlay and Witty TV kept; not yet run on this unit"
+}

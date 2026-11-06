@@ -1,0 +1,70 @@
+# Philips 55PUS7956/12 (TPV, PH0M_EA_T32, MStar/MediaTek), Italy -- personal variant
+# Derived from examples/philips-50pud7406/debloat.txt (same board; its eighth unit is a 65PUS7956
+# and its third unit a 55PUS7906/12, the same TV in another finish). NOT yet run on this unit.
+#
+# Before applying, check on the TV that it really is this platform:
+#   adb shell getprop ro.product.device            -> PH0M_EA_T32
+#   adb shell getprop persist.odm.tpv.fw.revision  -> TPM215E_... (Android 11)
+# The set shipped with Android 10; the parent list was only tested on Android 11 and 14.
+#
+# Apply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-55pus7956/debloat.txt
+# Undo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-55pus7956/debloat.txt
+# Everything is DISABLED, not uninstalled. Apply in small batches and check the TV between them.
+#
+# Owner's constraints for this variant:
+#   1. Ambilight untouched: org.droidtv.ambisvc and the Ambilight key are never disabled.
+#   2. Google's ambient screensaver kept: com.google.android.backdrop stays enabled, so quirk 1 of
+#      the parent list (screensaver pointing at a disabled component) does not apply.
+#   3. Apps kept: Netflix, Prime Video, HBO Max, Crunchyroll, YouTube, RaiPlay, Witty TV.
+#   4. Casting from a phone kept: com.google.android.apps.mediashell (Chromecast built-in) and
+#      com.google.android.tv.remote.service (Google TV remote app) stay enabled.
+#
+# Known quirks inherited from the parent list:
+#   - After a full reboot the firmware resumes Live TV (com.mediatek.wwtv.tvcenter) instead of Home.
+#   - On the 65PUS7956 unit, YouTube and Disney+ sign-in failed with Private DNS on: leave it off.
+#   - 1.38 GB RAM, ro.config.low_ram=true: every background service removed helps.
+
+# TPV / Philips telemetry
+org.droidtv.candeebug                        # "DAC" analytics uploader
+org.droidtv.gel                              # metrics collector in candeebug's process
+org.droidtv.tv.frameworklogger               # persistent TPV logger
+com.tpv.xmic.ots.cms.client                  # TPV "CMS client": INTERNET, boot receiver
+
+# Philips content, store and demo
+org.droidtv.nettv.market                     # app gallery storefront (apps stay installable from Play Store)
+org.droidtv.android.fitness                  # Fitness Buddy (may not be installed)
+fusion.android.tv.demo                       # retail demo
+com.mstar.android.tv.disclaimercustomization # vendor disclaimer screen
+com.mediatek.android.leanbacklauncher.partnercustomizer # partner promo rows on the stock launcher
+
+# Google recommendations (NOT the screensaver, NOT casting)
+com.google.android.tvrecommendations         # recommendation rows and notification panel
+
+# Google apps not in the owner's keep list
+com.google.android.videos
+com.google.android.youtube.tvmusic
+com.google.android.play.games
+com.google.android.feedback                  # Market Feedback Agent
+com.google.android.partnersetup              # partner referrer and attribution
+com.google.android.onetimeinitializer        # first-setup task
+android.autoinstalls.config.tpv.device       # TPV's Play auto-install list
+com.google.android.syncadapters.calendar     # no calendar app on a TV
+
+# Preinstalled streaming apps not in the keep list
+com.spotify.tv.android                       # comment out if you use Spotify (may not be installed)
+
+# ---------------------------------------------------------------------------------------------
+# KEPT ON PURPOSE (do not add these):
+#   Ambilight:      org.droidtv.ambisvc and any org.droidtv.ambi* package
+#   Screensaver:    com.google.android.backdrop
+#   Casting:        com.google.android.apps.mediashell, com.google.android.tv.remote.service
+#   Owner's apps:   com.netflix.ninja (Netflix), com.amazon.amazonvideo.livingroom (Prime Video),
+#                   HBO Max, com.crunchyroll.crunchyroid (Crunchyroll), com.google.android.youtube.tv
+#                   (YouTube), RaiPlay, Witty TV -- check the exact package names with
+#                   `adb shell pm list packages` before touching anything near them
+#   System:         com.google.android.katniss (Assistant), com.android.tv.ota (updates),
+#                   com.mediatek.wwtv.tvcenter, com.mediatek.tvinput, com.mediatek.tv.service,
+#                   org.droidtv, org.droidtv.icp, com.google.android.tungsten.setupwraith
+#                   (it can own the saved Wi-Fi network), org.droidtv.eum, org.droidtv.nettvregistration,
+#                   com.mediatek.wwtv.mediaplayer (never tested disabled on this board)
+#   Stock launcher: com.google.android.tvlauncher stays unless you install launcher/ as Home.
