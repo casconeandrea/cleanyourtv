@@ -10,6 +10,7 @@ Lista derivata da [`../philips-50pud7406/`](../philips-50pud7406/), che copre la
 |---|---|---|
 | Ambilight (`org.droidtv.ambisvc`) | non toccato | non toccato |
 | Screensaver Google (`com.google.android.backdrop`) | disattivato | **mantenuto** |
+| Icone Sorgenti e Wi-Fi nella Home (`com.mediatek.android.leanbacklauncher.partnercustomizer`) | disattivato | **mantenuto** |
 | Chromecast (`com.google.android.apps.mediashell`) | disattivato | **mantenuto** |
 | Netflix, Prime Video | disattivati | **mantenuti** |
 | HBO Max, Crunchyroll, YouTube, RaiPlay, Witty TV | non in lista | mantenuti |
@@ -20,8 +21,11 @@ Lista derivata da [`../philips-50pud7406/`](../philips-50pud7406/), che copre la
    essere `TPM215E` su Android 11. Il televisore è uscito con Android 10, e la lista di partenza
    è testata solo su Android 11 e 14.
 2. Controlla i nomi esatti dei pacchetti delle app da mantenere con `adb shell pm list packages`.
-3. Applica la lista a piccoli gruppi e prova il televisore tra un gruppo e l'altro: telecomando,
-   sorgenti HDMI, canali, Ambilight, cast dal telefono.
+3. Applica la lista a piccoli gruppi. Dopo ogni gruppo riavvia la Home con
+   `adb shell am force-stop com.google.android.tvlauncher`, premi Home e controlla che nella barra in alto
+   ci siano ancora le icone Sorgenti e Wi-Fi. Senza il riavvio della Home il controllo non vale: la Home
+   rilegge le personalizzazioni solo quando riparte. Se le icone mancano, ripristina quel gruppo.
+   Poi prova telecomando, sorgenti HDMI, canali, Ambilight e cast dal telefono.
 
 ## Dopo
 

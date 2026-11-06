@@ -16,7 +16,11 @@
 #   2. Google's ambient screensaver kept: com.google.android.backdrop stays enabled, so quirk 1 of
 #      the parent list (screensaver pointing at a disabled component) does not apply.
 #   3. Apps kept: Netflix, Prime Video, HBO Max, Crunchyroll, YouTube, RaiPlay, Witty TV.
-#   4. Casting from a phone kept: com.google.android.apps.mediashell (Chromecast built-in) and
+#   4. Stock Home keeps its Inputs and Wi-Fi icons: the MediaTek partnercustomizer stays enabled.
+#      After every batch, check: adb shell am force-stop com.google.android.tvlauncher, press Home,
+#      and look at the top bar. The stock launcher only re-reads partner settings when it restarts,
+#      so a check without the force-stop can pass and fail later. Icons gone -> restore the batch.
+#   5. Casting from a phone kept: com.google.android.apps.mediashell (Chromecast built-in) and
 #      com.google.android.tv.remote.service (Google TV remote app) stay enabled.
 #
 # Known quirks inherited from the parent list:
@@ -35,7 +39,14 @@ org.droidtv.nettv.market                     # app gallery storefront (apps stay
 org.droidtv.android.fitness                  # Fitness Buddy (may not be installed)
 fusion.android.tv.demo                       # retail demo
 com.mstar.android.tv.disclaimercustomization # vendor disclaimer screen
-com.mediatek.android.leanbacklauncher.partnercustomizer # partner promo rows on the stock launcher
+# com.mediatek.android.leanbacklauncher.partnercustomizer # KEEP: supplies the stock Home's Inputs and Wi-Fi icons
+#   On the parent list's 65PUS7956 and 50PUD7406/77 units the stock Home lost its Inputs and network icons
+#   (not bisected there). On other boards the same package is documented as the source of those icons:
+#   oneplus-tv-cebu (this exact MediaTek package, icons came back once re-enabled), motorola-mt4310,
+#   hisense-hismart-2k-atv4-hamamatsucho, panasonic-th-40hs550k, tcl-65x10. On the 65PUS7956 the icons
+#   were still there right after the batch that disabled it and gone after the next one, which fits the
+#   stock launcher reading partner customization only when it restarts. Cost of keeping it: the partner
+#   promo rows on the stock Home stay.
 
 # Google recommendations (NOT the screensaver, NOT casting)
 com.google.android.tvrecommendations         # recommendation rows and notification panel
@@ -57,6 +68,7 @@ com.spotify.tv.android                       # comment out if you use Spotify (m
 # KEPT ON PURPOSE (do not add these):
 #   Ambilight:      org.droidtv.ambisvc and any org.droidtv.ambi* package
 #   Screensaver:    com.google.android.backdrop
+#   Home icons:     com.mediatek.android.leanbacklauncher.partnercustomizer
 #   Casting:        com.google.android.apps.mediashell, com.google.android.tv.remote.service
 #   Owner's apps:   com.netflix.ninja (Netflix), com.amazon.amazonvideo.livingroom (Prime Video),
 #                   HBO Max, com.crunchyroll.crunchyroid (Crunchyroll), com.google.android.youtube.tv
